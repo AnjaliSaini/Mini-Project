@@ -1,0 +1,13 @@
+<?php
+
+<?php
+session_start();
+
+if(!isset($_SESSION['ema']))
+{
+	header('location: sign_up.php');
+}
+
+echo "Thankyou for registering with us. Click Here to <a href='index.php'>Login </a> ";
+
+?>

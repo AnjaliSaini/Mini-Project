@@ -1,0 +1,112 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['email']))
+{
+	header('location: index.php?msg=plz login first');
+}
+
+?>
+
+<html>
+<head>
+<title> Online Kabadi </title>
+ <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+<script src='js/bootstrap.min.js'> </script>
+<script src='js/jquery.js'> </script>
+
+
+</head>
+<body>
+
+<div class='container'>
+	
+	<div class='row'>
+		<div class='col-md-2'> <a href='index.php'> <img src='images/logo.jpg' width='200px' height='100px'> </div>
+		<div class='col-md-10'> <img src='images/home.jpg' width='1000px' height='100px'> </div> 
+	</div>
+</div>
+
+
+<div class='container'>
+
+ <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+             
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.php"> Kabadi Wala</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.php">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                
+                 
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+<div class='well'>
+Welcome <?php echo  $_SESSION['email']; ?>
+
+</div>
+
+<div class='col-md-4'> </div>
+<div class='col-md-4'>
+<form method='post' action='insert_kabad.php' enctype='multipart/form-data'>
+<table cellpadding=2>
+<tr>
+<td> Category:</td>
+<td> <select name='s1' required> <?php
+		$con=mysql_connect('localhost','root','root');
+		$db=mysql_select_db('kabadi');
+		$sql='select * from category';
+		$qry=mysql_query($sql);
+		while($data=mysql_fetch_array($qry))
+			{
+			   $id=$data['c_id'];
+			   $cat=$data['name'];
+?>
+	<option value=" <?php echo $id; ?> "> <?php echo $cat; ?> </option>
+<?php  } ?>
+</tr>
+<tr>
+<td> Name: </td>
+
+<td> <input type='text' name='nm' required> </td>
+</tr>
+<tr>
+<td> Decsription: </td>
+
+<td> <textarea rows=3 name='desc' required> </textarea></td>
+</tr>
+<tr>
+<td> Price: </td>
+
+<td> <input type='text' name='prc' required> </td>
+</tr>
+<tr>
+<td> Image: </td>
+
+<td> <input type='file' name='img' required>  </td>
+</tr>
+
+<tr>
+<td colspan='2' align='center'> <input type='submit' value='Submit' class='btn btn-primary'></td>
+</tr>
+
+<tr>
+<td colspan='2' align='center'><span style='color: red;'><?php  echo @$_GET['msg']; ?> </span> </td>
+</tr>
+</table>
+</form>
+</div>
+

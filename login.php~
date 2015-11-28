@@ -1,0 +1,33 @@
+<?php
+session_start();
+if(isset($_SESSION['email']))	
+		{
+
+		?> <div class='box'>  <?php  echo "Welcome: ".$_SESSION['email']."<br> <a href='welcome_user.php'>Click Here to insert Items </a>";  ?>  </div>
+
+		<?php }
+
+		else
+		{
+	?>
+
+	<div class='box'> 
+		<form class="form-horizontal" method='post' action='check_login.php'>
+		<div class="control-group">
+		<label class="control-label" for="inputEmail">Email</label>
+		<div class="controls">
+		<input type="text" id="inputEmail" placeholder="Email" class='span3' name='email'>
+		</div>
+		</div>
+		<div class="control-group">
+		<label class="control-label" for="inputPassword">Password</label>
+		<div class="controls">
+		<input type="password" id="inputPassword" placeholder="Password" name='pass'>
+		</div>
+		</div>
+	
+		<button type="submit" class="btn btn-primary">Log in</button> <br>
+		<label> <a href='sign_up.php'> Sign Up  </a></label>
+		<p style='color: red'> <?php echo @$_GET['msg']; ?> </p>
+        	</div>
+<?php } ?>

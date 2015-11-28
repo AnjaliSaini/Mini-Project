@@ -1,0 +1,33 @@
+<?php
+session_start();
+
+$em=$_SESSION['email'];
+
+$con=mysql_connect('localhost','root','root');
+$db=mysql_select_db('kabadi');
+
+$cat=$_POST['s1'];
+
+$nm=$_POST['nm'];
+$des=$_POST['desc'];
+$prc=$_POST['prc'];
+$tmp=$_FILES['img']['tmp_name'];
+$img=$_FILES['img']['name'];
+
+$url="kabadImg/".$img;
+$sql="insert into kabad set c_id=$cat , kabad='$nm', img='$url', desc='$des', cust_id='$em', price=$prc";
+$qry=mysql_query($sql);
+
+if($qry)
+{
+	move_uploaded_file($tmp,$url);
+	header('location: welcome_user.php?msg=succesfully inserted');
+}
+
+else
+{
+	//header('location: welcome_user.php?msg=error');
+	echo 'error';
+}
+
+?>
